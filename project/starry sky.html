@@ -1,0 +1,164 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<style type="text/css">
+*{
+	padding: 0px;
+	margin: 0px;
+}
+
+#canvas{
+	display: block;
+	width: 1200px;
+	height: 800px;
+	margin: 100px auto;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+
+<script type="text/javascript">
+window.onload = function(){
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+
+	canvas.width = 1200;
+	canvas.height = 800;
+
+	var gra = context.createLinearGradient(canvas.width,canvas.height,canvas.width,canvas.height*0.6);
+	gra.addColorStop(0.0,"blue");
+	gra.addColorStop(1.0,"black");
+
+
+	context.fillStyle = gra;
+	context.fillRect(0,0,canvas.width,canvas.height);
+
+	for(var i = 0; i < 200; i++)
+	{
+		var R = Math.random()*10+10;
+		var newx = Math.random()*canvas.width ;
+		var newy = Math.random()*canvas.height * 0.55;
+
+		drawStar(newx,newy,R,R*0.5,context);
+		
+		/*context.translate(newx,newy);
+		aStar(context);*/
+	}
+
+	fillMoon(context, 2, 900, 150, 100, 30);
+
+	drawLand(context);
+
+	context.save();
+	context.strokeStyle = "black"
+	context.lineWidth = 5;
+
+	context.font="bold 100px '微软雅黑'";
+	
+	context.strokeText("看星星", canvas.width*0.1, canvas.height*0.8);
+
+	context.restore();
+
+
+
+
+		
+	
+
+/*	context.beginPath();
+
+	for(var i = 0; i < 5; i++){
+		context.lineTo(Math.cos((18+i*72)/180*Math.PI)*100 + 400, - Math.sin((18+i*72)/180*Math.PI)*100+400);
+		context.lineTo(Math.cos((54+i*72)/180*Math.PI)*50+400, - Math.sin((54+i*72)/180*Math.PI)*50+400);
+	}
+	context.closePath();
+	context.strokeStyle="red";
+	context.stroke();
+*/
+}
+
+function drawStar(x,y,R,r,cxt){
+	cxt.beginPath();
+
+	for(var i = 0; i < 5; i++){
+		cxt.lineTo(Math.cos((18+i*72)/180*Math.PI)*R + x, - Math.sin((18+i*72)/180*Math.PI)*R + y);
+		cxt.lineTo(Math.cos((54+i*72)/180*Math.PI)*r + x, - Math.sin((54+i*72)/180*Math.PI)*r + y);
+		}
+	cxt.closePath();
+
+	cxt.strokeStyle = "yellow";
+	cxt.fillStyle = "yellow"
+	cxt.stroke();
+	cxt.fill();
+
+}
+
+function aStar(cxt){
+	cxt.beginPath();
+
+	for(var i = 0; i < 5; i++){
+		cxt.lineTo(Math.cos((18+i*72)/180*Math.PI)*10+10, - Math.sin((18+i*72)/180*Math.PI)*10+10);
+		cxt.lineTo(Math.cos((54+i*72)/180*Math.PI)*5+10, - Math.sin((54+i*72)/180*Math.PI)*5+10);
+		}
+	cxt.closePath();
+
+	cxt.strokeStyle = "yellow";
+	cxt.fillStyle = "yellow"
+	cxt.stroke();
+	cxt.fill();
+}
+
+function dis(x0,y0,x1,y1){
+	return Math.sqrt((x1-x0)*(x1-x0) +( y1-y0)*(y1-y0));
+}
+
+function fillMoon(cxt, d, x, y, R, rot,fillColor){
+	cxt.save();
+	cxt.translate(x, y);
+	cxt.rotate(rot * Math.PI / 180);
+	cxt.scale(R,R);
+	pathMoon(cxt, d);
+	cxt.fillStyle = fillColor || "#fb5";
+	cxt.fill();
+	cxt.restore();
+}
+
+function pathMoon( cxt, d ){
+	cxt.beginPath();
+	cxt.arc(0, 0, 1, 0.5*Math.PI, 1.5*Math.PI,true);
+	cxt.moveTo(0,-1);
+	cxt.arcTo(d, 0, 0, 1,dis(0, -1, d, 0) / d);
+	cxt.closePath();
+}
+
+function drawLand(cxt){
+	cxt.save();
+
+	cxt.beginPath();
+	cxt.moveTo(0,canvas.height*0.7);
+	cxt.bezierCurveTo(canvas.width*0.3, canvas.height*0.5,canvas.width*0.6,canvas.height*0.9,canvas.width,canvas.height*0.7);
+	cxt.lineTo(canvas.width,canvas.height);
+	cxt.lineTo(0,canvas.height);
+	cxt.closePath();
+
+	var Agreen = cxt.createLinearGradient(0,canvas.height*0.6,0,canvas.height);
+	Agreen.addColorStop(0.0,"green");
+	Agreen.addColorStop(1.0,"black");
+	cxt.fillStyle = Agreen;
+	cxt.fill();
+	cxt.restore();
+
+	
+
+}
+</script>
+
+</body>
