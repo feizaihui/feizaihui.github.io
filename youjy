@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>游靖雅小朋友</title>
+    <style type="text/css">
+        html{
+            width: 100%;
+            height: 100%;
+        }
+        body{
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            font-family: 'Lato', sans-serif, 'Microsoft YaHei';
+            overflow: hidden;
+        }
+        
+        .box{
+            position: relative;
+            width: 90%;
+            height: 100%;
+            margin: 0 auto;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .btn{
+            position: absolute;
+            /*top: 300px; */
+            padding: 10px 20px;
+            font-size: 22px;
+            text-align: center;
+            background-color: #158fef;
+            border-radius: 20px;
+            color: #fff;
+
+        }
+
+        .ctn{
+            box-sizing: border-box;
+            position: absolute;
+            top: 5%;
+            width: 100%;
+            height: 90%;
+            padding: 5%;
+            z-index: 2;
+            background-color: #158fef;
+            border-radius: 10px;
+            color: #fff;
+            animation:  bigger 1s;
+            overflow-y: scroll;
+        }
+        @keyframes bigger{
+            0%{transform: scale(0, .01);}
+            50%{transform: scale(1, .01);}
+            100%{transform: scale(1, 1);}
+        }
+        .submit{
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            margin: 20px;
+            padding: 5px 5px;
+            border: 1px solid #fff;
+            border-radius: 2px;
+            text-align: center;
+        }
+
+        .input{
+            width: 100%;
+            height: 30px;
+            outline: none;
+            border: none;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="box" id="box">
+    <div class="btn" id="btn">Click It!</div>
+    <div id="ctn">    </div>
+</div>
+    
+    <script type="text/javascript">
+    window.onload = function() {
+        var box = document.getElementById('box');
+        var btn = document.getElementById('btn');
+        var ctn = document.getElementById('ctn');
+        
+
+        var W = box.offsetWidth;
+        var H = box.offsetHeight;
+
+        var bW = btn.offsetWidth;
+        var bH = btn.offsetHeight;
+        btn.style.top = (H - bH)/ 2 + 'px';
+        btn.style.left = (W - bW)/ 2 + 'px';
+
+        
+
+
+
+
+    }
+        btn.onclick = function(){
+                    ctn.setAttribute('class','ctn')
+
+                    setTimeout(cover,1500)
+                }
+
+
+
+    var letter = 'Hello 游靖雅小朋友<br>哈哈哈  突然发现原来我地噶生辰只系差左一日<br>虽然好想从中扯出一D特别噶意义<br>但系似乎唔可以如我愿<br><br>时间似乎过得有D快，转眼间就识左你7年<br>终于系第七年记住咗你噶生辰<br>甘就罚我请你吃个饭啦<br>时间有d紧，电子卡请笑纳<br>希望你  <s>2</s>  18  岁生日快乐<br>新噶一年可以更加开心<br>礼物已备好，地址发比我<br>Ps：或者发个时间比我？<br>PPS:下方有按钮 大概等2s <a class="submit" href="sms:15622763935">发比我</a>';
+    var index = 0;
+
+
+    function typeIt(){
+        document.getElementById('ctn').innerHTML = letter.substring(0,index++) ;
+        if(ctn.scrollHeight > (ctn.offsetHeight / 2)){ctn.scrollTop +=20}
+    }
+
+    var flag = false;
+    function cover(){
+        if(flag){return}
+        typeIt();
+        setTimeout(cover,100)
+        if(index > letter.length){
+            flag = true;
+        }
+    }
+
+
+
+
+    </script>
+</body>
+
+</html>
